@@ -6,6 +6,10 @@ const categoriesController = require('./categories/CategoriesController');
 const articlesController = require('./articles/ArticlesController')
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+const favicon = require('serve-favicon');
+
+//favicon
+app.use(favicon(__dirname + '/public/icon.png'));
 
 //view engine
 app.set('view engine', 'ejs');
