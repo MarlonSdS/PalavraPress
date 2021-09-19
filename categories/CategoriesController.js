@@ -3,16 +3,17 @@ const router = Express.Router();
 const Category = require('./Category');
 const Slugify = require('slugify');
 const { default: slugify } = require("slugify");
+const adminAuth = require('../midlewares/adminAuth');
 
 router.get("/categories", (req, res) =>{
     res.send("Rota categorias")
 })
 
-router.get("/categories/admin/new", (req, res) =>{
+router.get("/categories/admin/new",adminAuth,(req, res) =>{
     res.send("Criar uma nova categoria")
 })
 
-router.get("/admin/categories/new", (req, res) =>{
+router.get("/admin/categories/new", adminAuth,(req, res) =>{
     res.render('admin/categories/new')
 })
 
@@ -52,7 +53,7 @@ router.post("/categories/delete", (req, res) => {
 
 
 
-router.get("/admin/categories", (req, res) => {
+router.get("/admin/categories", adminAuth,(req, res) => {
     Category.findAll().then(categories => {
         res.render("admin/categories/index", {categories: categories});
     })
@@ -61,7 +62,7 @@ router.get("/admin/categories", (req, res) => {
 })
 
 
-router.get("/admin/categories/edit/:id", (req, res) => {
+router.get("/admin/categories/edit/:id", adminAuth,(req, res) => {
     var id = req.params.id;
     if(isNaN(id)){
         res.redirect("/admin/categories");
